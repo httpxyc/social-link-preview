@@ -23,7 +23,10 @@ const mockFetchData = async (ids: string): Promise<LinkMetadata> => {
   console.log("Mock fetching data for ids:", ids);
   return new Promise((resolve) => {
     setTimeout(() => {
-      resolve(demoMetadata);
+      resolve({
+        ...demoMetadata,
+        imageUrl: `https://picsum.photos/id/${ids}/200`,
+      });
     }, 1000); // 模拟1秒延迟
   });
 };
