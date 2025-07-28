@@ -40,8 +40,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       siteName: post.siteName || "Next.js",
       images: post.imageUrls.map((url) => ({
         url,
-        width: 300,
-        height: 300,
+        width: 800,
+        height: 418,
       })),
     },
     twitter: {

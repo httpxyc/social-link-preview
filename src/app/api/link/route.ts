@@ -25,7 +25,7 @@ const mockFetchData = async (ids: string[]): Promise<LinkMetadata> => {
     setTimeout(() => {
       resolve({
         ...demoMetadata,
-        imageUrls: ids.map((id) => `https://picsum.photos/id/${id}/300`), // 模拟不同的图片
+        imageUrls: ids.map((id) => `https://picsum.photos/id/${id}/800/418`), // 模拟不同的图片
       });
     }, 1000); // 模拟1秒延迟
   });
