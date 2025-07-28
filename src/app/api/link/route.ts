@@ -5,7 +5,7 @@ import { NextRequest } from "next/server";
 export interface LinkMetadata {
   title: string;
   description: string;
-  imageUrl: string;
+  imageUrls: string[];
   url: string;
   siteName: string;
   type?: string;
@@ -13,19 +13,19 @@ export interface LinkMetadata {
 const demoMetadata: LinkMetadata = {
   title: "Demo Link",
   description: "This is a demo link for testing purposes.",
-  imageUrl: "https://picsum.photos/200",
+  imageUrls: ["https://picsum.photos/300"],
   url: "https://example.com/demo",
   siteName: "Demo Site",
   type: "website",
 };
-const mockFetchData = async (ids: string): Promise<LinkMetadata> => {
+const mockFetchData = async (ids: string[]): Promise<LinkMetadata> => {
   // 模拟数据获取
   console.log("Mock fetching data for ids:", ids);
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve({
         ...demoMetadata,
-        imageUrl: `https://picsum.photos/id/${ids}/200`,
+        imageUrls: ids.map((id) => `https://picsum.photos/id/${id}/300`), // 模拟不同的图片
       });
     }, 1000); // 模拟1秒延迟
   });
@@ -36,6 +36,6 @@ export async function GET(request: NextRequest) {
   if (!ids) {
     return Response.json({ error: "Missing ids parameter" }, { status: 400 });
   }
-  const metadata = await mockFetchData(ids);
+  const metadata = await mockFetchData(ids.split(","));
   return Response.json(metadata);
 }

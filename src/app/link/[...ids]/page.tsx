@@ -5,7 +5,7 @@ import { LinkMetadata } from "@/app/api/link/route";
 import { cache } from "react";
 
 type Props = {
-  params: Promise<{ ids: string }>;
+  params: Promise<{ ids: string[] }>;
   // searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 };
 
@@ -28,7 +28,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const ids = (await params).ids;
 
   // fetch post information
-  const post: LinkMetadata = await fetchLinkMetadata(ids);
+  const post: LinkMetadata = await fetchLinkMetadata(ids.join(","));
 
   return {
     title: post.title,
@@ -38,19 +38,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description: post.description,
       url: post.url,
       siteName: post.siteName || "Next.js",
-      images: [
-        {
-          url: post.imageUrl,
-          width: 200,
-          height: 200,
-        },
-      ],
+      images: post.imageUrls.map((url) => ({
+        url,
+        width: 300,
+        height: 300,
+      })),
     },
     twitter: {
       card: "summary_large_image",
       title: post.title,
       description: post.description,
-      images: [post.imageUrl],
+      images: post.imageUrls,
     },
   };
 }
@@ -65,7 +63,7 @@ const page = async ({ params }: { params: Promise<{ ids: string }> }) => {
       <div className="container">
         <h1>{metadata.title}</h1>
         <p>{metadata.description}</p>
-        <img src={metadata.imageUrl} alt={metadata.title} />
+        {metadata.imageUrls.length > 0 && metadata.imageUrls.map((url, index) => <img key={index} src={url} alt={`Image ${index + 1}`} width={300} height={300} />)}
         {/* 其他页面内容... */}
       </div>
     </div>
