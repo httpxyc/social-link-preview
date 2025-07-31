@@ -68,7 +68,7 @@ const page = async ({ params }: { params: Promise<{ ids: string }> }) => {
       <div className="container">
         <h1>{metadata.title}</h1>
         <p>{metadata.description}</p>
-        {metadata.imageUrls.length > 0 && metadata.imageUrls.map((url, index) => <img key={index} src={url} alt={`Image ${index + 1}`} width={300} height={300} />)}
+        {/* {metadata.imageUrls.length > 0 && metadata.imageUrls.map((url, index) => <img key={index} src={url} alt={`Image ${index + 1}`} width={300} height={300} />)} */}
         {/* 其他页面内容... */}
         {metadata.videoUrls.length > 0 && metadata.videoUrls.map((url, index) => <video key={index} src={url} width={400} height={400} controls />)}
       </div>
