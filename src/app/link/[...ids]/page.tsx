@@ -43,6 +43,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         width: 800,
         height: 418,
       })),
+      videos: post.videoUrls.map((url) => ({
+        url,
+        width: 400,
+        height: 400,
+      })),
     },
     twitter: {
       card: "summary_large_image",
@@ -65,6 +70,7 @@ const page = async ({ params }: { params: Promise<{ ids: string }> }) => {
         <p>{metadata.description}</p>
         {metadata.imageUrls.length > 0 && metadata.imageUrls.map((url, index) => <img key={index} src={url} alt={`Image ${index + 1}`} width={300} height={300} />)}
         {/* 其他页面内容... */}
+        {metadata.videoUrls.length > 0 && metadata.videoUrls.map((url, index) => <video key={index} src={url} width={400} height={400} controls />)}
       </div>
     </div>
   );

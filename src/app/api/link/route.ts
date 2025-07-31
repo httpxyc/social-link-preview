@@ -6,6 +6,7 @@ export interface LinkMetadata {
   title: string;
   description: string;
   imageUrls: string[];
+  videoUrls: string[];
   url: string;
   siteName: string;
   type?: string;
@@ -14,6 +15,7 @@ const demoMetadata: LinkMetadata = {
   title: "Demo Link",
   description: "This is a demo link for testing purposes.",
   imageUrls: ["https://picsum.photos/300"],
+  videoUrls: [""],
   url: "https://example.com/demo",
   siteName: "Demo Site",
   type: "website",
@@ -26,6 +28,7 @@ const mockFetchData = async (ids: string[]): Promise<LinkMetadata> => {
       resolve({
         ...demoMetadata,
         imageUrls: ids.map((id) => `https://picsum.photos/id/${id}/800/418`), // 模拟不同的图片
+        videoUrls: ids.map((id) => `https://videos.pexels.com/video-files/32572444/13889293_1920_1080_24fps.mp4`), // 模拟视频链接
       });
     }, 1000); // 模拟1秒延迟
   });
